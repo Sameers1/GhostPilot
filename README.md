@@ -22,7 +22,7 @@ No clicks. No stress. Just say it — GhostPilot does it.
 
 - 🧠 **LLMs + Vision Models**  
 - 🖥️ **Desktop Integration (Windows/Mac/Linux)**  
-- 🧰 **Python + Electron (or your choice)**
+- 🧰 **Python**
 
 ---
 
