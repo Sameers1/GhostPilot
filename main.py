@@ -1,16 +1,12 @@
 import sys
 import os
 from datetime import datetime
-from PyQt6.QtWidgets import (QApplication, QWidget, QLabel, QVBoxLayout, 
-                           QPushButton, QHBoxLayout)
-from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QScreen, QPixmap
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton
+from PyQt6.QtCore import Qt, QTimer, QUrl
+from PyQt6.QtGui import QScreen, QDesktopServices
 
-class HelloWorldApp(QWidget):
-    """
-    A Hello World application with screenshot functionality.
-    Takes screenshots every 5 seconds when enabled.
-    """
+class ScreenshotApp(QWidget):
+    """Simple screenshot application with toggle functionality"""
     def __init__(self):
         super().__init__()
         self.screenshot_timer = QTimer()
@@ -23,29 +19,38 @@ class HelloWorldApp(QWidget):
         try:
             # Set window properties
             self.setWindowTitle('Screenshot App')
-            self.setGeometry(100, 100, 300, 150)
+            self.setGeometry(100, 100, 300, 200)
             
             # Create widgets
-            self.hello_label = QLabel('Hello World!', parent=self)
-            self.hello_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            
-            self.status_label = QLabel('Screenshots: OFF', parent=self)
+            self.status_label = QLabel('Screenshots: OFF', self)
             self.status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             
             self.toggle_button = QPushButton('Start Screenshots', self)
             self.toggle_button.clicked.connect(self.toggle_screenshots)
             
-            # Create layouts
-            main_layout = QVBoxLayout()
-            button_layout = QHBoxLayout()
+            # Create credits section
+            self.credits_label = QLabel('Created by Sameer', self)
+            self.credits_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             
-            # Add widgets to layouts
-            main_layout.addWidget(self.hello_label)
-            main_layout.addWidget(self.status_label)
-            button_layout.addWidget(self.toggle_button)
-            main_layout.addLayout(button_layout)
+            # Create GitHub link
+            self.github_link = QLabel('<a href="https://github.com/Sameers1">GitHub: Sameers1</a>', self)
+            self.github_link.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.github_link.setOpenExternalLinks(True)
             
-            self.setLayout(main_layout)
+            # Create email link
+            self.email_link = QLabel('<a href="mailto:ssb.codex@gmail.com">Contact: ssb.codex@gmail.com</a>', self)
+            self.email_link.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.email_link.setOpenExternalLinks(True)
+            
+            # Create layout
+            layout = QVBoxLayout()
+            layout.addWidget(self.status_label)
+            layout.addWidget(self.toggle_button)
+            layout.addStretch()  # Add some space
+            layout.addWidget(self.credits_label)
+            layout.addWidget(self.github_link)
+            layout.addWidget(self.email_link)
+            self.setLayout(layout)
             
         except Exception as e:
             print(f"Error initializing UI: {str(e)}")
@@ -90,7 +95,7 @@ def main():
     """Main function to run the application"""
     try:
         app = QApplication(sys.argv)
-        window = HelloWorldApp()
+        window = ScreenshotApp()
         window.show()
         sys.exit(app.exec())
     except Exception as e:
