@@ -1,31 +1,68 @@
-# Hello World PyQt6 Application
+# GhostPilot - AI Automation Assistant
 
-A simple PyQt6 application that displays "Hello World!" in a window.
+## LLM Setup Instructions
 
-## Features
-- Simple GUI window
-- PyQt6-based interface
-- Cross-platform compatible
+### Prerequisites
+- Docker and Docker Compose installed on your system
+- At least 8GB of RAM (16GB recommended)
+- 20GB of free disk space
 
-## Requirements
-- Python 3.x
-- PyQt6
+### Setting up the LLM
 
-## Installation
+1. Start the Ollama container:
 ```bash
-pip install PyQt6
+docker-compose up -d
 ```
 
-## Usage
-Run the application:
+2. Pull a model (we recommend using LLaVA for image analysis):
+```bash
+docker exec ollama ollama pull llava
+```
+
+3. Verify the installation:
+```bash
+docker exec ollama ollama list
+```
+
+### Running the Application
+
+1. Make sure the Ollama container is running:
+```bash
+docker ps
+```
+
+2. Start the GhostPilot application:
 ```bash
 python main.py
 ```
 
-## Building Executable
-To create a standalone executable:
+3. Click "Start Screenshots" to begin capturing and analyzing screenshots.
+
+### Troubleshooting
+
+If you encounter any issues:
+
+1. Check if the Ollama container is running:
 ```bash
-pip install pyinstaller
-pyinstaller --onefile --windowed --name HelloWorldApp main.py
+docker ps
 ```
-The executable will be created in the `dist` folder. 
+
+2. Check the container logs:
+```bash
+docker logs ollama
+```
+
+3. Restart the container if needed:
+```bash
+docker-compose restart
+```
+
+### Available Models
+
+You can use any of these models with Ollama:
+- llava (recommended for image analysis)
+- mistral
+- llama2
+- codellama
+
+To switch models, pull the new model and update the model name in the application code. 
